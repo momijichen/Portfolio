@@ -16,15 +16,15 @@
       theme: {
         extend: {
           colors: {
-            matcha:   '#4B5D46',
-            uji:      '#708C69',
-            washi:    '#F4EFE4',
-            hojicha:  '#9A7650',
-            lantern:  '#D4BE95',
-            wakakusa: '#8EA45B',
-            fog:      '#FBF9F4',
-            ink:      '#2C2A28',
-            mistg:    '#C7D0C1',
+            matcha:   '#8C9E80',
+            uji:      '#6B7B5F',
+            washi:    '#F7F4EE',
+            hojicha:  '#CFC2B5',
+            lantern:  '#E5D9CB',
+            wakakusa: '#8C9A72',
+            fog:      '#FBFAF7',
+            ink:      '#52574F',
+            mistg:    '#D7DCD3',
           },
           fontFamily: {
             sans: ['Inter', 'Noto Sans TC', 'ui-sans-serif', 'system-ui', 'sans-serif']
@@ -36,21 +36,25 @@
 
   <style>
     :root {
-      --matcha:   #4B5D46;
-      --uji:      #708C69;
-      --washi:    #F4EFE4;
-      --hojicha:  #9A7650;
-      --lantern:  #D4BE95;
-      --wakakusa: #8EA45B;
-      --fog:      #FBF9F4;
-      --ink:      #2C2A28;
-      --mistg:    #C7D0C1;
+      --matcha:   #8C9E80;
+      --uji:      #6B7B5F;
+      --washi:    #F7F4EE;
+      --hojicha:  #CFC2B5;
+      --lantern:  #E5D9CB;
+      --wakakusa: #8C9A72;
+      --fog:      #FBFAF7;
+      --ink:      #52574F;
+      --mistg:    #D7DCD3;
     }
 
     * { box-sizing: border-box; }
 
-    body {
+    html {
       background-color: var(--fog);
+    }
+
+    body {
+      background-color: transparent;
       color: var(--ink);
       font-family: 'Inter', 'Noto Sans TC', sans-serif;
       overflow-x: hidden;
@@ -64,9 +68,9 @@
       pointer-events: none;
       z-index: -1;
       background-image:
-        linear-gradient(rgba(75, 93, 70, 0.038) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(75, 93, 70, 0.038) 1px, transparent 1px);
-      background-size: 64px 64px;
+        radial-gradient(circle at 18% 16%, rgba(140, 154, 114, 0.06), transparent 22%),
+        radial-gradient(circle at 84% 12%, rgba(168, 183, 164, 0.04), transparent 18%);
+      background-size: cover;
     }
 
     .video-bg-wrapper {
@@ -75,14 +79,13 @@
       z-index: -3;
       overflow: hidden;
       pointer-events: none;
-      background: rgba(255, 255, 255, 0.12);
     }
 
     .video-bg-wrapper::after {
       content: "";
       position: absolute;
       inset: 0;
-      background: rgba(255, 255, 255, 0.60);
+      background: rgba(251, 250, 247, 0.75);
       pointer-events: none;
     }
 
@@ -90,14 +93,15 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 110%;
-      height: 110%;
-      min-width: 110%;
-      min-height: 110%;
+      /* 16:9 fullscreen cover formula */
+      width: 100vw;
+      height: 56.25vw;
+      min-height: 100vh;
+      min-width: 177.78vh;
       transform: translate(-50%, -50%);
       border: none;
-      opacity: 0.36;
-      filter: saturate(0.92) brightness(1.00) contrast(0.96);
+      opacity: 0.55;
+      filter: saturate(0.85) brightness(1.05) contrast(0.95);
       pointer-events: none;
     }
 
@@ -116,15 +120,15 @@
 
     /* ── Navigation ── */
     .nav-glass {
-      background: rgba(251, 249, 244, 0.90);
+      background: rgba(255, 250, 247, 0.92);
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
-      border-bottom: 1px solid rgba(199, 208, 193, 0.45);
+      border-bottom: 1px solid rgba(215, 220, 211, 0.45);
     }
 
     .nav-link {
       position: relative;
-      color: rgba(44, 42, 40, 0.60);
+      color: rgba(63, 69, 59, 0.88);
       font-size: 0.875rem;
       font-weight: 500;
       transition: color 0.25s;
@@ -136,11 +140,11 @@
       position: absolute;
       left: 0; bottom: -4px;
       width: 0; height: 1.5px;
-      background: var(--matcha);
+      background: var(--uji);
       transition: width 0.25s ease;
     }
 
-    .nav-link:hover { color: var(--matcha); }
+    .nav-link:hover { color: var(--uji); }
     .nav-link:hover::after { width: 100%; }
 
     /* ── Section alternating bg ── */
@@ -149,26 +153,26 @@
     /* ── Cards ── */
     .card {
       background: #ffffff;
-      border: 1px solid rgba(199, 208, 193, 0.60);
+      border: 1px solid rgba(215, 220, 211, 0.60);
       border-radius: 1.5rem;
       transition: transform 0.38s ease, box-shadow 0.38s ease, border-color 0.38s ease;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      border-color: rgba(112, 140, 105, 0.38);
-      box-shadow: 0 20px 56px rgba(75, 93, 70, 0.11);
+      border-color: rgba(143, 153, 132, 0.38);
+      box-shadow: 0 20px 52px rgba(82, 87, 79, 0.08);
     }
 
     .card-static {
       background: #ffffff;
-      border: 1px solid rgba(199, 208, 193, 0.60);
+      border: 1px solid rgba(215, 220, 211, 0.60);
       border-radius: 1.5rem;
     }
 
     .card-washi {
       background: var(--washi);
-      border: 1px solid rgba(212, 190, 149, 0.38);
+      border: 1px solid rgba(229, 217, 203, 0.38);
       border-radius: 1.5rem;
     }
 
@@ -177,7 +181,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--matcha);
+      background: var(--uji);
       color: #fff;
       border-radius: 999px;
       padding: 0.875rem 1.875rem;
@@ -188,9 +192,9 @@
     }
 
     .btn-primary:hover {
-      background: #3d4e39;
+      background: #6d7f6f;
       transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(75, 93, 70, 0.28);
+      box-shadow: 0 12px 32px rgba(82, 87, 79, 0.18);
     }
 
     .btn-outline {
@@ -198,8 +202,8 @@
       align-items: center;
       gap: 0.5rem;
       background: transparent;
-      color: var(--matcha);
-      border: 1.5px solid rgba(75, 93, 70, 0.40);
+      color: var(--ink);
+      border: 1.5px solid rgba(127, 148, 129, 0.40);
       border-radius: 999px;
       padding: 0.875rem 1.875rem;
       font-size: 0.875rem;
@@ -209,8 +213,8 @@
     }
 
     .btn-outline:hover {
-      background: rgba(75, 93, 70, 0.06);
-      border-color: rgba(75, 93, 70, 0.65);
+      background: rgba(127, 148, 129, 0.08);
+      border-color: rgba(127, 148, 129, 0.65);
       transform: translateY(-3px);
     }
 
@@ -218,7 +222,7 @@
     .type-cursor::after {
       content: "|";
       margin-left: 3px;
-      color: var(--wakakusa);
+      color: var(--ink);
       animation: blink 1s infinite;
     }
 
@@ -230,9 +234,9 @@
     /* ── Tags ── */
     .tag {
       display: inline-block;
-      background: rgba(212, 190, 149, 0.22);
-      border: 1px solid rgba(212, 190, 149, 0.50);
-      color: var(--hojicha);
+      background: rgba(229, 217, 203, 0.18);
+      border: 1px solid rgba(229, 217, 203, 0.45);
+      color: var(--ink);
       border-radius: 999px;
       padding: 0.22rem 0.72rem;
       font-size: 0.695rem;
@@ -241,17 +245,17 @@
     }
 
     .tag-green {
-      background: rgba(112, 140, 105, 0.10);
-      border: 1px solid rgba(112, 140, 105, 0.28);
-      color: var(--matcha);
+      background: rgba(107, 123, 95, 0.16);
+      border: 1px solid rgba(107, 123, 95, 0.35);
+      color: var(--uji);
     }
 
     /* ── Skill chips ── */
     .skill-chip {
       display: inline-block;
       background: var(--fog);
-      border: 1px solid rgba(199, 208, 193, 0.75);
-      color: rgba(44, 42, 40, 0.72);
+      border: 1px solid rgba(215, 220, 211, 0.75);
+      color: rgba(82, 87, 79, 0.72);
       border-radius: 0.5rem;
       padding: 0.32rem 0.68rem;
       font-size: 0.775rem;
@@ -264,7 +268,7 @@
       align-items: center;
       gap: 0.5rem;
       background: #fff;
-      border: 1px solid rgba(199, 208, 193, 0.65);
+      border: 1px solid rgba(215, 220, 211, 0.65);
       border-radius: 999px;
       padding: 0.45rem 1.1rem;
     }
@@ -272,7 +276,7 @@
     .stat-num {
       font-size: 1rem;
       font-weight: 700;
-      color: var(--matcha);
+      color: var(--uji);
     }
 
     .stat-label {
@@ -286,6 +290,11 @@
       border: 1px solid rgba(112, 140, 105, 0.18);
       border-radius: 0.875rem;
       padding: 0.875rem 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      min-height: 114px; /* Unified height to beautifully fit indicator, big stat, and label in all cards */
     }
 
     .metric-num {
@@ -297,7 +306,7 @@
 
     .metric-label {
       font-size: 0.68rem;
-      color: rgba(75, 93, 70, 0.65);
+      color: rgba(82, 87, 79, 0.55);
       margin-top: 0.2rem;
     }
 
@@ -308,14 +317,14 @@
       gap: 0.75rem;
       padding: 0.875rem 1rem;
       background: #fff;
-      border: 1px solid rgba(199, 208, 193, 0.55);
+      border: 1px solid rgba(215, 220, 211, 0.55);
       border-radius: 1rem;
     }
 
     .ach-icon {
       width: 34px; height: 34px;
       border-radius: 0.625rem;
-      background: rgba(212, 190, 149, 0.18);
+      background: rgba(229, 217, 203, 0.18);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -326,7 +335,7 @@
     /* ── Soft divider ── */
     .divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(199, 208, 193, 0.65), transparent);
+      background: linear-gradient(90deg, transparent, rgba(215, 220, 211, 0.45), transparent);
     }
 
     /* ── Section label ── */
@@ -339,7 +348,7 @@
     }
 
     .hero-title {
-      background: linear-gradient(120deg, #2C2A28 0%, #9A7650 48%, #D4BE95 100%);
+      background: linear-gradient(120deg, #52574F 0%, #8C9A72 46%, #7F9481 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -347,7 +356,7 @@
     }
 
     .hero-subtitle {
-      color: #4B5D46;
+      color: #52574F;
     }
 
     /* ── Fade-in ── */
@@ -392,14 +401,14 @@
     /* ── Contact icon buttons ── */
     .contact-icon-btn:hover {
       transform: translateY(-3px);
-      border-color: rgba(112, 140, 105, 0.45) !important;
-      box-shadow: 0 8px 24px rgba(75, 93, 70, 0.12);
+      border-color: rgba(127, 148, 129, 0.45) !important;
+      box-shadow: 0 8px 24px rgba(82, 87, 79, 0.10);
     }
 
     /* ── Scrollbar ── */
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--fog); }
-    ::-webkit-scrollbar-thumb { background: var(--mistg); border-radius: 999px; }
+    ::-webkit-scrollbar-thumb { background: rgba(215, 220, 211, 0.65); border-radius: 999px; }
   </style>
 </head>
 
@@ -430,6 +439,8 @@
         <div class="hidden md:flex items-center gap-8">
           <a class="nav-link" href="#about">關於我</a>
           <a class="nav-link" href="#skills">專業能力</a>
+          <a class="nav-link" href="#cases">工作成果</a>
+          <a class="nav-link" href="#beyond">創作面</a>
           <a href="#consult" class="btn-primary" style="padding:0.55rem 1.25rem;font-size:0.8rem">預約諮詢</a>
         </div>
 
@@ -444,11 +455,13 @@
 
     <!-- Mobile drawer -->
     <div id="mobileDrawer" class="md:hidden">
-      <div class="nav-glass mx-4 mt-1 rounded-2xl px-5 py-4" style="border:1px solid rgba(199,208,193,0.4)">
+      <div class="nav-glass mx-4 mt-1 rounded-2xl px-5 py-4" style="border:1px solid rgba(215,220,211,0.4)">
         <div class="grid gap-4 text-sm font-medium">
-          <a class="mobile-link" href="#about" style="color:rgba(44,42,40,.65);text-decoration:none">關於我</a>
-          <a class="mobile-link" href="#skills" style="color:rgba(44,42,40,.65);text-decoration:none">專業能力</a>
-          <a class="mobile-link" href="#consult" style="color:rgba(44,42,40,.65);text-decoration:none">預約諮詢</a>
+          <a class="mobile-link" href="#about" style="color:rgba(82,87,79,.65);text-decoration:none">關於我</a>
+          <a class="mobile-link" href="#skills" style="color:rgba(82,87,79,.65);text-decoration:none">專業能力</a>
+          <a class="mobile-link" href="#cases" style="color:rgba(82,87,79,.65);text-decoration:none">工作成果</a>
+          <a class="mobile-link" href="#beyond" style="color:rgba(82,87,79,.65);text-decoration:none">創作面</a>
+          <a class="mobile-link" href="#consult" style="color:rgba(82,87,79,.65);text-decoration:none">預約諮詢</a>
         </div>
       </div>
     </div>
@@ -473,7 +486,7 @@
             <span id="typewriter" class="type-cursor"></span>
           </div>
 
-          <div class="mt-7 max-w-xl text-[1.05rem] leading-[1.9] text-gray-800" style="color:rgba(44,42,40,.72)">
+          <div class="mt-7 max-w-xl text-[1.05rem] leading-[1.9] text-gray-800" style="color:rgba(82,87,79,.72)">
             <p class="mb-4">
               從 AI 標註流程、AR 教育產品到政府提案，<br />
               我習慣在不同領域的交界處工作，把模糊的需求轉化成可以實際運作的東西。
@@ -502,6 +515,7 @@
 
           <!-- CTAs -->
           <div class="mt-10 flex flex-col sm:flex-row gap-3">
+            <a href="#cases" class="btn-primary">查看工作成果 ↓</a>
             <a href="https://calendar.app.google/4akmDj5Bpy3jWL1q6" target="_blank" rel="noopener" class="btn-outline">預約 30 分鐘諮詢</a>
           </div>
         </div>
@@ -515,7 +529,7 @@
                 <h2 class="text-xl font-semibold" style="color:var(--ink)">從想法到體驗的轉譯者</h2>
               </div>
               <div class="w-10 h-10 rounded-xl grid place-items-center text-lg flex-shrink-0"
-                style="background:rgba(75,93,70,.08);color:var(--matcha);border:1px solid rgba(75,93,70,.18)">◌</div>
+                style="background:rgba(168,183,164,.08);color:var(--uji);border:1px solid rgba(168,183,164,.18)">◌</div>
             </div>
 
             <div class="space-y-3">
@@ -523,29 +537,29 @@
                 <span class="pdot mt-1" style="background:var(--matcha)"></span>
                 <div>
                   <p class="text-sm font-semibold mb-1" style="color:var(--ink)">Discovery</p>
-                  <p class="text-xs leading-5" style="color:rgba(44,42,40,.52)">釐清使用者、場景、痛點，收斂產品方向。</p>
+                  <p class="text-xs leading-5" style="color:rgba(82,87,79,.52)">釐清使用者、場景、痛點，收斂產品方向。</p>
                 </div>
               </div>
               <div class="flex items-start gap-3 rounded-xl p-4" style="background:var(--fog)">
                 <span class="pdot mt-1" style="background:var(--lantern)"></span>
                 <div>
                   <p class="text-sm font-semibold mb-1" style="color:var(--ink)">Experience Design</p>
-                  <p class="text-xs leading-5" style="color:rgba(44,42,40,.52)">讓技術被理解、被喜歡，也真正被使用。</p>
+                  <p class="text-xs leading-5" style="color:rgba(82,87,79,.52)">讓技術被理解、被喜歡，也真正被使用。</p>
                 </div>
               </div>
               <div class="flex items-start gap-3 rounded-xl p-4" style="background:var(--fog)">
                 <span class="pdot mt-1" style="background:var(--wakakusa)"></span>
                 <div>
                   <p class="text-sm font-semibold mb-1" style="color:var(--ink)">Execution</p>
-                  <p class="text-xs leading-5" style="color:rgba(44,42,40,.52)">在有限資源下，建立能落地與持續運行的流程。</p>
+                  <p class="text-xs leading-5" style="color:rgba(82,87,79,.52)">在有限資源下，建立能落地與持續運行的流程。</p>
                 </div>
               </div>
             </div>
 
-            <div class="mt-6 pt-5 flex items-center justify-between text-xs" style="border-top:1px solid rgba(199,208,193,.45);color:rgba(44,42,40,.40)">
+            <div class="mt-6 pt-5 flex items-center justify-between text-xs" style="border-top:1px solid rgba(215,220,211,.45);color:rgba(82,87,79,.40)">
               <span>現任：初版數位內容 PM</span>
               <span class="flex items-center gap-1.5">
-                <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background:var(--wakakusa)"></span>
+                <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background:var(--uji)"></span>
                 Available
               </span>
             </div>
@@ -573,29 +587,26 @@
           <!-- Photo card -->
           <div class="fade-up">
             <div class="card-washi p-7 text-center">
-              <img
-                src="大頭照.jpg"
-                alt="陳羽書 Yu-Shu Chen"
-                class="mx-auto h-32 w-32 rounded-full object-cover mb-5"
-                style="box-shadow:0 8px 28px rgba(75,93,70,.14);ring:4px solid #fff"
-              />
+              <div class="mx-auto h-32 w-32 rounded-full mb-5 border-4 border-white shadow-md overflow-hidden">
+                <img src="大頭照.jpg" alt="Momiji Chen" class="w-full h-full object-cover" />
+              </div>
               <p class="font-semibold text-lg" style="color:var(--ink)">陳羽書 Yu-Shu Chen</p>
               <p class="text-sm mt-1" style="color:var(--uji)">AI 科技產品經理</p>
               <div class="divider my-5"></div>
               <div class="space-y-2.5 text-left">
-                <div class="flex items-center gap-2 text-sm" style="color:rgba(44,42,40,.58)">
+                <div class="flex items-center gap-2 text-sm" style="color:rgba(82,87,79,.58)">
                   <span style="color:var(--uji);width:1rem">◎</span>
                   <span>初版數位內容股份有限公司</span>
                 </div>
-                <div class="flex items-center gap-2 text-sm" style="color:rgba(44,42,40,.58)">
+                <div class="flex items-center gap-2 text-sm" style="color:rgba(82,87,79,.58)">
                   <span style="color:var(--uji);width:1rem">◎</span>
                   <span>PMP 專案管理認證</span>
                 </div>
-                <div class="flex items-center gap-2 text-sm" style="color:rgba(44,42,40,.58)">
+                <div class="flex items-center gap-2 text-sm" style="color:rgba(82,87,79,.58)">
                   <span style="color:var(--uji);width:1rem">◎</span>
                   <span>GA4 數據分析能力</span>
                 </div>
-                <div class="flex items-center gap-2 text-sm" style="color:rgba(44,42,40,.58)">
+                <div class="flex items-center gap-2 text-sm" style="color:rgba(82,87,79,.58)">
                   <span style="color:var(--uji);width:1rem">◎</span>
                   <span>UI/UX 設計背景</span>
                 </div>
@@ -605,7 +616,7 @@
 
           <!-- Bio + achievements -->
           <div class="fade-up space-y-7">
-            <div class="space-y-5 text-[1.02rem] leading-[1.9]" style="color:rgba(44,42,40,.68)">
+            <div class="space-y-5 text-[1.02rem] leading-[1.9]" style="color:rgba(82,87,79,.68)">
               <p>
                 我是陳羽書，現任初版數位內容股份有限公司產品經理，專注於教育科技、AI 應用與數位互動體驗設計。
               </p>
@@ -623,28 +634,28 @@
                 <div class="ach-icon">🏆</div>
                 <div>
                   <p class="text-sm font-semibold" style="color:var(--ink)">HolonIQ Taiwan EdTech 50</p>
-                  <p class="text-xs mt-0.5" style="color:rgba(44,42,40,.45)">國際教育科技榜單入選</p>
+                  <p class="text-xs mt-0.5" style="color:rgba(82,87,79,.45)">國際教育科技榜單入選</p>
                 </div>
               </div>
               <div class="achievement">
                 <div class="ach-icon">📖</div>
                 <div>
                   <p class="text-sm font-semibold" style="color:var(--ink)">金鼎獎相關肯定</p>
-                  <p class="text-xs mt-0.5" style="color:rgba(44,42,40,.45)">出版品質認可</p>
+                  <p class="text-xs mt-0.5" style="color:rgba(82,87,79,.45)">出版品質認可</p>
                 </div>
               </div>
               <div class="achievement">
                 <div class="ach-icon">✈️</div>
                 <div>
                   <p class="text-sm font-semibold" style="color:var(--ink)">日本 EDIX 科技教育展</p>
-                  <p class="text-xs mt-0.5" style="color:rgba(44,42,40,.45)">產品推動與展示代表</p>
+                  <p class="text-xs mt-0.5" style="color:rgba(82,87,79,.45)">產品推動與展示代表</p>
                 </div>
               </div>
               <div class="achievement">
                 <div class="ach-icon">📋</div>
                 <div>
                   <p class="text-sm font-semibold" style="color:var(--ink)">PMP 國際認證</p>
-                  <p class="text-xs mt-0.5" style="color:rgba(44,42,40,.45)">專案管理能力認證</p>
+                  <p class="text-xs mt-0.5" style="color:rgba(82,87,79,.45)">專案管理能力認證</p>
                 </div>
               </div>
             </div>
@@ -656,21 +667,21 @@
         <div class="divider my-14"></div>
 
         <div class="grid gap-5 md:grid-cols-3 fade-up">
-          <div class="card p-7" style="background:#ecf3e8">
-            <p class="text-sm font-bold mb-3" style="color:var(--matcha)">服務對象</p>
-            <p class="text-sm leading-7" style="color:rgba(44,42,40,.78)">
+          <div class="card p-7" style="background:#F7F4EE">
+            <p class="text-sm font-bold mb-3" style="color:var(--uji)">服務對象</p>
+            <p class="text-sm leading-7" style="color:rgba(82,87,79,.78)">
               教育科技公司、內容品牌、學校、圖書館、展覽場域、文化機構，以及探索 AI、AR 與兒童學習體驗的組織。
             </p>
           </div>
-          <div class="card p-7" style="background:#fdf6e8">
+          <div class="card p-7" style="background:#FBFAF7">
             <p class="text-sm font-bold mb-3" style="color:var(--hojicha)">核心能力</p>
-            <p class="text-sm leading-7" style="color:rgba(44,42,40,.78)">
+            <p class="text-sm leading-7" style="color:rgba(82,87,79,.78)">
               在創意、技術與商業需求之間進行轉譯，協助不同角色對齊目標，形成可開發、測試與推廣的方案。
             </p>
           </div>
-          <div class="card p-7" style="background:#f6f3ea">
-            <p class="text-sm font-bold mb-3" style="color:var(--matcha)">合作價值</p>
-            <p class="text-sm leading-7" style="color:rgba(44,42,40,.78)">
+          <div class="card p-7" style="background:#F4F2EF">
+            <p class="text-sm font-bold mb-3" style="color:var(--uji)">合作價值</p>
+            <p class="text-sm leading-7" style="color:rgba(82,87,79,.78)">
               將抽象需求整理成清楚產品架構，並在有限資源下找到最適合落地的路徑。
             </p>
           </div>
@@ -697,9 +708,9 @@
           <!-- 01 -->
           <div class="fade-up card p-7">
             <div class="w-10 h-10 rounded-xl grid place-items-center text-lg mb-5 flex-shrink-0"
-              style="background:rgba(75,93,70,.08);color:var(--matcha);border:1px solid rgba(75,93,70,.18)">◌</div>
+              style="background:rgba(168,183,164,.08);color:var(--uji);border:1px solid rgba(168,183,164,.18)">◌</div>
             <h3 class="text-[1.05rem] font-semibold mb-3" style="color:var(--ink)">產品規劃與策略</h3>
-            <p class="text-sm leading-6 mb-5" style="color:rgba(44,42,40,.58)">
+            <p class="text-sm leading-6 mb-5" style="color:rgba(82,87,79,.58)">
               從 Discovery 到 Prototype 的完整能力。曾主導使用者訪談、市場定位分析，並獨立完成多份競賽提案簡報。
             </p>
             <div class="flex flex-wrap gap-1.5">
@@ -713,9 +724,9 @@
           <!-- 02 -->
           <div class="fade-up card p-7">
             <div class="w-10 h-10 rounded-xl grid place-items-center text-lg mb-5 flex-shrink-0"
-              style="background:rgba(212,190,149,.18);color:var(--hojicha);border:1px solid rgba(212,190,149,.35)">◎</div>
+              style="background:rgba(229,217,203,.18);color:var(--hojicha);border:1px solid rgba(229,217,203,.35)">◎</div>
             <h3 class="text-[1.05rem] font-semibold mb-3" style="color:var(--ink)">體驗設計與互動</h3>
-            <p class="text-sm leading-6 mb-5" style="color:rgba(44,42,40,.58)">
+            <p class="text-sm leading-6 mb-5" style="color:rgba(82,87,79,.58)">
               UI/UX 設計背景，在產品決策中更在意使用者的感受、細節與情境。能從設計思維角度為產品把關。
             </p>
             <div class="flex flex-wrap gap-1.5">
@@ -729,9 +740,9 @@
           <!-- 03 -->
           <div class="fade-up card p-7">
             <div class="w-10 h-10 rounded-xl grid place-items-center text-lg mb-5 flex-shrink-0"
-              style="background:rgba(142,164,91,.10);color:var(--wakakusa);border:1px solid rgba(142,164,91,.22)">⌁</div>
+              style="background:rgba(140,154,114,.10);color:var(--wakakusa);border:1px solid rgba(140,154,114,.22)">⌁</div>
             <h3 class="text-[1.05rem] font-semibold mb-3" style="color:var(--ink)">流程優化與執行</h3>
-            <p class="text-sm leading-6 mb-5" style="color:rgba(44,42,40,.58)">
+            <p class="text-sm leading-6 mb-5" style="color:rgba(82,87,79,.58)">
               重構 AI 資料標註作業流程，降低成本 60%，機制穩定運行逾四年。從零建立 OKR 體系並落地執行一年半。
             </p>
             <div class="flex flex-wrap gap-1.5">
@@ -745,9 +756,9 @@
           <!-- 04 -->
           <div class="fade-up card p-7">
             <div class="w-10 h-10 rounded-xl grid place-items-center text-lg mb-5 flex-shrink-0"
-              style="background:rgba(75,93,70,.08);color:var(--matcha);border:1px solid rgba(75,93,70,.18)">✦</div>
+              style="background:rgba(168,183,164,.08);color:var(--uji);border:1px solid rgba(168,183,164,.18)">✦</div>
             <h3 class="text-[1.05rem] font-semibold mb-3" style="color:var(--ink)">團隊統籌與人才培育</h3>
-            <p class="text-sm leading-6 mb-5" style="color:rgba(44,42,40,.58)">
+            <p class="text-sm leading-6 mb-5" style="color:rgba(82,87,79,.58)">
               遠距團隊管理、跨部門協作與人才培育。曾統籌 14 位實習生與 4 位 PM，建立系統性培育機制。
             </p>
             <div class="flex flex-wrap gap-1.5">
@@ -760,9 +771,9 @@
           <!-- 05 -->
           <div class="fade-up card p-7">
             <div class="w-10 h-10 rounded-xl grid place-items-center text-lg mb-5 flex-shrink-0"
-              style="background:rgba(212,190,149,.18);color:var(--hojicha);border:1px solid rgba(212,190,149,.35)">◈</div>
+              style="background:rgba(229,217,203,.18);color:var(--hojicha);border:1px solid rgba(229,217,203,.35)">◈</div>
             <h3 class="text-[1.05rem] font-semibold mb-3" style="color:var(--ink)">AI 應用與數據分析</h3>
-            <p class="text-sm leading-6 mb-5" style="color:rgba(44,42,40,.58)">
+            <p class="text-sm leading-6 mb-5" style="color:rgba(82,87,79,.58)">
               AI 標註專案管理經驗，以及 GA4 數據分析基礎。能同時從策略、體驗、執行與成效角度思考產品問題。
             </p>
             <div class="flex flex-wrap gap-1.5">
@@ -773,31 +784,304 @@
           </div>
 
           <!-- 06: What I solve -->
-          <div class="fade-up card p-7" style="background:var(--matcha);border-color:var(--matcha)">
-            <p class="text-[0.65rem] font-bold tracking-[0.2em] uppercase mb-5" style="color:rgba(255,255,255,.55)">What I Solve</p>
+          <div class="fade-up card p-7" style="background:#7A8D73;border-color:#6E7F64">
+            <p class="text-[0.65rem] font-bold tracking-[0.2em] uppercase mb-5" style="color:rgba(255,255,255,.78)">What I Solve</p>
             <div class="space-y-3.5">
-              <div class="flex items-center gap-2.5 text-sm" style="color:rgba(255,255,255,.88)">
-                <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:var(--wakakusa)"></span>
+              <div class="flex items-center gap-3 text-sm" style="color:rgba(255,255,255,.95);font-weight:500">
+                <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:var(--lantern)"></span>
                 有創意，但難以產品化
               </div>
-              <div class="flex items-center gap-2.5 text-sm" style="color:rgba(255,255,255,.88)">
-                <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:var(--lantern)"></span>
+              <div class="flex items-center gap-3 text-sm" style="color:rgba(255,255,255,.95);font-weight:500">
+                <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:var(--mistg)"></span>
                 有技術，但缺乏體驗設計
               </div>
-              <div class="flex items-center gap-2.5 text-sm" style="color:rgba(255,255,255,.88)">
-                <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:var(--wakakusa)"></span>
+              <div class="flex items-center gap-3 text-sm" style="color:rgba(255,255,255,.95);font-weight:500">
+                <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:var(--lantern)"></span>
                 有需求，但無法清楚定義
               </div>
-              <div class="flex items-center gap-2.5 text-sm" style="color:rgba(255,255,255,.88)">
-                <span class="w-1.5 h-1.5 rounded-full flex-shrink-0" style="background:var(--lantern)"></span>
+              <div class="flex items-center gap-3 text-sm" style="color:rgba(255,255,255,.95);font-weight:500">
+                <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:var(--mistg)"></span>
                 功能過度發散，溝通成本高
               </div>
             </div>
-            <div class="mt-5 pt-5 text-xs leading-5" style="border-top:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.50)">
+            <div class="mt-5 pt-5 text-xs leading-5" style="border-top:1px solid rgba(255,255,255,.28);color:rgba(255,255,255,.75)">
               在創意、技術與商業需求之間進行轉譯，在有限資源下找到最適合落地的路徑。
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         CASES
+    ════════════════════════════════════ -->
+    <section id="cases" class="px-5 md:px-8 py-24 bg-washi">
+      <div class="mx-auto max-w-6xl">
+
+        <div class="fade-up mb-14 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <p class="s-label mb-3">Selected Work</p>
+            <h2 class="text-4xl md:text-5xl font-semibold tracking-tight" style="color:var(--ink)">
+              實戰工作成果
+            </h2>
+          </div>
+          <p class="max-w-sm text-sm leading-7" style="color:rgba(82,87,79,.52)">
+            這些不是漂亮名詞的堆疊，而是從需求、限制、團隊協作到市場溝通之間，實際推進過的現場。
+          </p>
+        </div>
+
+        <div class="grid gap-6 lg:grid-cols-2">
+
+          <!-- Case 01 -->
+          <article class="fade-up card p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-5">
+                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
+                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">01</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">童畫童話｜AR 教育互動產品</h3>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                擔任產品經理，主導產品策略、UI/UX、互動流程與跨部門協作。協助兒童將自己的繪畫角色轉化為 AR 故事體驗，入選 HolonIQ Taiwan EdTech 50。代表公司赴日參與 EDIX 科技教育展，以英文獨立解說產品；展場現場識別媒體機會，主動牽線促成執行長受訪並成功刊登。回台後受邀出席科技教育頒獎典禮，代表公司上台領獎，並於現場以英文完成數發部官員產品簡介。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ IMPACT / 產品影響力</p>
+                  <p class="metric-num">EdTech 50</p>
+                  <p class="metric-label">HolonIQ Taiwan 入選</p>
+                </div>
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ GLOBAL / 國際開拓力</p>
+                  <p class="metric-num">EDIX</p>
+                  <p class="metric-label">日本教育科技展代表展示</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag tag-green">Product Strategy</span>
+                <span class="tag tag-green">UI/UX Design</span>
+                <span class="tag">EdTech</span>
+                <span class="tag">AR</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Case 02 -->
+          <article class="fade-up card p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-5">
+                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
+                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">02</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">AI 資料標註流程重構</h3>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                獨立統籌逾 104 個 AI 資料標註專案，涵蓋需求確認、標註原則設計、品質管控與客戶攻防。與跨職能小組系統性重構作業流程，成本降低 60%，機制穩定運行逾四年。同步協助工程師將打包交付流程規格化，作業時間從 3 天縮短至 1 天。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ CONTROL / 專案掌控力</p>
+                  <p class="metric-num">104 個</p>
+                  <p class="metric-label">標註專案獨立統籌</p>
+                </div>
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ OPTIMIZATION / 效能優化力</p>
+                  <p class="metric-num">60% ↓</p>
+                  <p class="metric-label">流程重構成本降低</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag tag-green">Process Design</span>
+                <span class="tag tag-green">AI Workflow</span>
+                <span class="tag">PM</span>
+                <span class="tag">Operations</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Case 03 -->
+          <article class="fade-up card p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-5">
+                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
+                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">03</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">政府補助與競賽提案</h3>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                獨立完成 6–7 份競賽提案簡報，從市場定位、商業模式到簡報敘事全程主導，其中一份在逾 1,500 隊的競賽中進入決賽前 9 強。同時獨立撰寫多份政府補助申請案，最大單案規模達 259 萬，涵蓋 SITI 數位創新補助與地方青創計畫。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ PERSUASION / 提案說服力</p>
+                  <p class="metric-num" style="font-size: 1.15rem; line-height: 1.2;">打入決賽 9 強</p>
+                  <p class="metric-label">AI Innovation 1500隊競爭</p>
+                </div>
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ EXECUTION / 文件執行力</p>
+                  <p class="metric-num">259 萬</p>
+                  <p class="metric-label">獨立撰寫最大補助案規模</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag tag-green">Storytelling</span>
+                <span class="tag tag-green">Business Strategy</span>
+                <span class="tag">Proposal</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Case 04 -->
+          <article class="fade-up card p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-5">
+                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
+                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">04</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">OKR 體系建立與團隊培育</h3>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                於組織內從零建立 OKR 體系並落地執行一年半。統籌 14 位實習生與 4 位 PM，建立系統性培育機制，讓成員能逐步獨立作業，降低管理依賴度。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ LEADERSHIP / 團隊統籌力</p>
+                  <p class="metric-num">14 位</p>
+                  <p class="metric-label">實習生統籌管理</p>
+                </div>
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ ADOPTION / 機制落地力</p>
+                  <p class="metric-num">1.5 年</p>
+                  <p class="metric-label">OKR 體系落地執行</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag tag-green">Team Building</span>
+                <span class="tag tag-green">OKR</span>
+                <span class="tag">Leadership</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Case 05 -->
+          <article class="fade-up card p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-5">
+                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
+                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">05</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">泰國智慧教育平板｜海外教育產品設計</h3>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                於 Shuttle 擔任 UI 設計師，獨立完成泰國小學智慧教育平板的完整 Wireframe，涵蓋所有頁面資訊架構與互動流程設計。在無法進行使用者訪談、無法直接接觸目標市場的條件下，獨立完成所有設計判斷，最終產品出貨進行實地測試。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ OWNERSHIP / 獨立主導</p>
+                  <p class="metric-num text-uji" style="font-size: 1.15rem; line-height: 1.2;">從模糊需求找到方向</p>
+                  <p class="metric-label">需求模糊、零訪談，獨立完成全站 Wireframe</p>
+                </div>
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ DELIVERY / 海外落地</p>
+                  <p class="metric-num text-uji" style="font-size: 1.15rem; line-height: 1.2;">跨國設計案</p>
+                  <p class="metric-label">泰國小學實地部署，跨文化場域落地</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag tag-green">UI/UX</span>
+                <span class="tag tag-green">Wireframing</span>
+                <span class="tag">Overseas Deployment</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- Case 06 -->
+          <article class="fade-up card p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-5">
+                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
+                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">06</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">靈魂藍圖｜團隊自我狀態評估工具</h3>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                從個人創作延伸為團隊工具，透過五個維度的選題測驗，協助成員覺察自己真正在意的狀態與價值取向。以雷達圖呈現個人與團隊的狀態分布，幫助組織在高壓或模糊時期找到對齊的起點。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ ORIGIN / 創作起點</p>
+                  <p class="metric-num text-uji" style="font-size: 1.15rem; line-height: 1.2;">個人→團隊</p>
+                  <p class="metric-label">從自我探索工具延伸為組織應用</p>
+                </div>
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ METHOD / 評估方式</p>
+                  <p class="metric-num text-uji" style="font-size: 1.15rem; line-height: 1.2;">五維雷達圖</p>
+                  <p class="metric-label">選題覺察，視覺化呈現個人狀態</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag tag-green">Product Design</span>
+                <span class="tag tag-green">Self-assessment</span>
+                <span class="tag">Team Tools</span>
+                <span class="tag">UX Research</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════
+         BEYOND PRODUCT
+    ════════════════════════════════════ -->
+    <section id="beyond" class="px-5 md:px-8 py-24">
+      <div class="mx-auto max-w-6xl">
+        <div class="fade-up card overflow-hidden" style="border-radius:2rem">
+          <div class="grid lg:grid-cols-2">
+
+            <!-- Text -->
+            <div class="p-9 md:p-12">
+              <p class="s-label mb-4">Beyond Product</p>
+              <h2 class="text-3xl md:text-4xl font-semibold tracking-tight mb-6" style="color:var(--ink)">
+                理性之外，<br />仍保留觀察生活的手感。
+              </h2>
+              <p class="text-[1rem] leading-[1.9] mb-5" style="color:rgba(82,87,79,.65)">
+                設計背景讓我在產品決策中，更在意使用者的感受、細節與情境。我曾擔任水彩老師 3 年，也喜歡透過水彩與速寫觀察生活。
+              </p>
+              <p class="text-[1rem] leading-[1.9]" style="color:rgba(82,87,79,.65)">
+                對我來說，繪畫不是逃離產品工作，而是一種訓練：學會看見結構、留白、節奏，以及那些不容易被數據直接說出的感受。
+              </p>
+              <div class="mt-8 flex gap-2">
+                <span class="tag">水彩</span>
+                <span class="tag">速寫</span>
+                <span class="tag">生活觀察</span>
+              </div>
+            </div>
+
+            <!-- Visual: watercolor timelapse video -->
+            <div class="relative overflow-hidden" style="background:var(--washi)">
+              <img src="watercolor.jpg" alt="水彩速寫作品" class="w-full h-auto block"/>
+              <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" style="opacity:0.93;object-position:center bottom">
+                <source src="IMG_8810.mov" type="video/quicktime">
+                <source src="IMG_8810.mov" type="video/mp4">
+              </video>
+              <!-- Caption overlay -->
+              <div class="absolute bottom-0 left-0 right-0 px-7 py-5"
+                style="background:linear-gradient(to top, rgba(44,42,40,.10), transparent)">
+                <p class="text-xs font-medium" style="color:rgba(255,255,255,.92);letter-spacing:0.1em">
+                  水彩速寫縮時攝影
+                </p>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
@@ -812,24 +1096,24 @@
           <h2 class="text-4xl md:text-6xl font-semibold tracking-tight mb-6" style="color:var(--ink)">
             有想法需要一起釐清？
           </h2>
-          <p class="mx-auto max-w-xl text-[1.05rem] leading-[1.85] mb-10" style="color:rgba(44,42,40,.58)">
+          <p class="mx-auto max-w-xl text-[1.05rem] leading-[1.85] mb-10" style="color:rgba(82,87,79,.58)">
             讓我們把模糊的想法轉化為結構清楚的產品方向、可執行的工作流程，以及有意義的使用者體驗。
           </p>
           <a href="https://calendar.app.google/4akmDj5Bpy3jWL1q6" target="_blank" rel="noopener"
             class="btn-primary" style="font-size:1rem;padding:1rem 2.25rem">
             預約 30 分鐘免費諮詢
           </a>
-          <p class="mt-5 text-xs" style="color:rgba(44,42,40,.32)">Google Calendar · 免費 · 30 分鐘</p>
+          <p class="mt-5 text-xs" style="color:rgba(82,87,79,.32)">Google Calendar · 免費 · 30 分鐘</p>
 
           <!-- Contact links -->
-          <div class="mt-12 pt-10" style="border-top:1px solid rgba(199,208,193,.5)">
-            <p class="text-xs mb-6" style="color:rgba(44,42,40,.38);letter-spacing:0.14em;text-transform:uppercase;font-weight:600">或透過以下方式聯繫</p>
+          <div class="mt-12 pt-10" style="border-top:1px solid rgba(215,220,211,.5)">
+            <p class="text-xs mb-6" style="color:rgba(82,87,79,.38);letter-spacing:0.14em;text-transform:uppercase;font-weight:600">或透過以下方式聯繫</p>
             <div class="flex flex-wrap items-center justify-center gap-4">
 
               <!-- Email -->
               <a href="mailto:momiji.chen@gmail.com"
                 class="contact-icon-btn group flex items-center gap-3 rounded-2xl px-5 py-3.5 text-sm font-medium transition-all duration-300"
-                style="background:#fff;border:1px solid rgba(199,208,193,.65);color:rgba(44,42,40,.72);text-decoration:none">
+                style="background:#fff;border:1px solid rgba(215,220,211,.65);color:rgba(82,87,79,.72);text-decoration:none">
                 <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="color:var(--matcha)">
                   <rect x="2" y="4" width="20" height="16" rx="3"/>
                   <path d="m2 7 10 7 10-7"/>
@@ -837,10 +1121,20 @@
                 <span>momiji.chen@gmail.com</span>
               </a>
 
+              <!-- LINE -->
+              <a href="https://line.me/ti/p/momiji_chen" target="_blank" rel="noopener"
+                class="contact-icon-btn flex items-center gap-3 rounded-2xl px-5 py-3.5 text-sm font-medium transition-all duration-300"
+                style="background:#fff;border:1px solid rgba(215,220,211,.65);color:rgba(82,87,79,.72);text-decoration:none">
+                <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" style="color:#06c755">
+                  <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                </svg>
+                <span>momiji_chen</span>
+              </a>
+
               <!-- LinkedIn -->
               <a href="https://www.linkedin.com/in/momiji/" target="_blank" rel="noopener"
                 class="contact-icon-btn flex items-center gap-3 rounded-2xl px-5 py-3.5 text-sm font-medium transition-all duration-300"
-                style="background:#fff;border:1px solid rgba(199,208,193,.65);color:rgba(44,42,40,.72);text-decoration:none">
+                style="background:#fff;border:1px solid rgba(215,220,211,.65);color:rgba(82,87,79,.72);text-decoration:none">
                 <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor" style="color:#0a66c2">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
@@ -859,14 +1153,14 @@
   ════════════════════════════════════ -->
   <footer class="px-5 md:px-8 py-10">
     <div class="mx-auto max-w-6xl flex flex-col md:flex-row justify-between items-center gap-4 pt-8"
-      style="border-top:1px solid rgba(199,208,193,.45)">
+      style="border-top:1px solid rgba(215,220,211,.45)">
       <div class="flex items-center gap-3">
         <span class="grid h-7 w-7 place-items-center rounded-full bg-matcha text-white text-xs font-bold">羽</span>
-        <p class="text-sm" style="color:rgba(44,42,40,.42)">
+        <p class="text-sm" style="color:rgba(82,87,79,.42)">
           © <span id="year"></span> Chen Yu-Shu · AI Product · EdTech · Experience Design
         </p>
       </div>
-      <p class="text-xs" style="color:rgba(44,42,40,.28)">Designed with clarity, structure, and a little watercolor patience.</p>
+      <p class="text-xs" style="color:rgba(82,87,79,.28)">Designed with clarity, structure, and a little watercolor patience.</p>
     </div>
   </footer>
 
@@ -875,16 +1169,22 @@
     const menuBtn = document.getElementById('menuBtn');
     const mobileDrawer = document.getElementById('mobileDrawer');
 
-    menuBtn.addEventListener('click', () => {
-      mobileDrawer.classList.toggle('open');
-    });
+    if (menuBtn && mobileDrawer) {
+      menuBtn.addEventListener('click', () => {
+        mobileDrawer.classList.toggle('open');
+      });
+    }
 
     document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => mobileDrawer.classList.remove('open'));
+      link.addEventListener('click', () => {
+        if (mobileDrawer) {
+          mobileDrawer.classList.remove('open');
+        }
+      });
     });
 
     // ── Multi-phrase typewriter ───────────────────────
-    const typeTarget = document.getElementById('typewriter');
+    let typeTarget = null;
     const phrases = [
       'To Make Each Day Count',
       '從想法到體驗的轉譯者',
@@ -893,13 +1193,19 @@
     let pIdx = 0, cIdx = 0, deleting = false;
 
     function typeWriter() {
+      if (!typeTarget) {
+        typeTarget = document.getElementById('typewriter');
+      }
+      if (!typeTarget) return;
+
       const cur = phrases[pIdx];
       if (!deleting) {
         typeTarget.textContent = cur.slice(0, cIdx + 1);
         cIdx++;
         if (cIdx === cur.length) {
           deleting = true;
-          return setTimeout(typeWriter, 2400);
+          setTimeout(typeWriter, 2400);
+          return;
         }
         setTimeout(typeWriter, 72);
       } else {
@@ -908,71 +1214,85 @@
         if (cIdx === 0) {
           deleting = false;
           pIdx = (pIdx + 1) % phrases.length;
-          return setTimeout(typeWriter, 420);
+          setTimeout(typeWriter, 420);
+          return;
         }
         setTimeout(typeWriter, 36);
       }
     }
-    window.addEventListener('load', () => setTimeout(typeWriter, 700));
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(typeWriter, 700);
+    });
 
     // ── Scroll fade-in ────────────────────────────────
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      entries.forEach(e => { 
+        if (e.isIntersecting) {
+          e.target.classList.add('visible'); 
+        }
+      });
     }, { threshold: 0.10 });
+    
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
     // ── Footer year ───────────────────────────────────
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const yearEl = document.getElementById('year');
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
 
     // ── Network canvas ────────────────────────────────
     const canvas = document.getElementById('networkCanvas');
-    const ctx = canvas.getContext('2d');
-    let W, H, pts;
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let W, H, pts;
 
-    function resize() {
-      W = canvas.width  = window.innerWidth  * devicePixelRatio;
-      H = canvas.height = window.innerHeight * devicePixelRatio;
-      canvas.style.width  = window.innerWidth  + 'px';
-      canvas.style.height = window.innerHeight + 'px';
-      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
-      pts = Array.from({ length: Math.min(55, Math.floor(window.innerWidth / 22)) }, () => ({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        vx: (Math.random() - .5) * .17,
-        vy: (Math.random() - .5) * .17,
-        r: Math.random() * 1.5 + .6
-      }));
-    }
+      function resize() {
+        W = canvas.width  = window.innerWidth  * devicePixelRatio;
+        H = canvas.height = window.innerHeight * devicePixelRatio;
+        canvas.style.width  = window.innerWidth  + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+        pts = Array.from({ length: Math.min(55, Math.floor(window.innerWidth / 22)) }, () => ({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - .5) * .17,
+          vy: (Math.random() - .5) * .17,
+          r: Math.random() * 1.5 + .6
+        }));
+      }
 
-    function draw() {
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      pts.forEach((p, i) => {
-        p.x += p.vx; p.y += p.vy;
-        if (p.x < 0 || p.x > window.innerWidth)  p.vx *= -1;
-        if (p.y < 0 || p.y > window.innerHeight)  p.vy *= -1;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(75,93,70,.30)';
-        ctx.fill();
-        for (let j = i + 1; j < pts.length; j++) {
-          const q = pts[j];
-          const d = Math.hypot(p.x - q.x, p.y - q.y);
-          if (d < 125) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(q.x, q.y);
-            ctx.strokeStyle = `rgba(75,93,70,${.10 * (1 - d / 125)})`;
-            ctx.lineWidth = .75;
-            ctx.stroke();
+      function draw() {
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        pts.forEach((p, i) => {
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > window.innerWidth)  p.vx *= -1;
+          if (p.y < 0 || p.y > window.innerHeight)  p.vy *= -1;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(127,148,129,.30)';
+          ctx.fill();
+          for (let j = i + 1; j < pts.length; j++) {
+            const q = pts[j];
+            const d = Math.hypot(p.x - q.x, p.y - q.y);
+            if (d < 125) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = `rgba(127,148,129,${.10 * (1 - d / 125)})`;
+              ctx.lineWidth = .75;
+              ctx.stroke();
+            }
           }
-        }
-      });
-      requestAnimationFrame(draw);
-    }
+        });
+        requestAnimationFrame(draw);
+      }
 
-    window.addEventListener('resize', resize);
-    resize();
-    draw();
+      window.addEventListener('resize', resize);
+      resize();
+      draw();
+    }
   </script>
 </body>
 </html>
