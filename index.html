@@ -409,10 +409,134 @@
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--fog); }
     ::-webkit-scrollbar-thumb { background: rgba(215, 220, 211, 0.65); border-radius: 999px; }
+
+    /* ── Image Gallery Modal ── */
+    .image-modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.92);
+    }
+
+    .image-modal.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-modal-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+    }
+
+    .image-modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .image-modal-close:hover {
+      color: #ccc;
+    }
+
+    .image-modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      padding: 20px;
+      z-index: 10;
+    }
+
+    .image-modal-nav:hover {
+      color: #ccc;
+    }
+
+    .image-modal-prev {
+      left: 20px;
+    }
+
+    .image-modal-next {
+      right: 20px;
+    }
+
+    .image-modal-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #fff;
+      font-size: 14px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 10px 20px;
+      border-radius: 4px;
+      max-width: 80%;
+      text-align: center;
+    }
+
+    /* ── View More Button ── */
+    .view-more-link {
+      display: inline-block;
+      color: var(--uji);
+      font-size: 0.875rem;
+      font-weight: 600;
+      padding: 0.5rem 0;
+      border: none;
+      border-bottom: 1px solid var(--uji);
+      background: none;
+      cursor: pointer;
+      transition: opacity 0.25s;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+
+    .view-more-link:hover {
+      opacity: 0.7;
+    }
   </style>
+
+
 </head>
 
 <body class="antialiased">
+  <!-- Image Gallery Modal -->
+  <div id="imageModal" class="image-modal">
+    <div class="image-modal-content">
+      <button class="image-modal-close" onclick="closeImageModal()">&times;</button>
+      <button class="image-modal-nav image-modal-prev" onclick="prevImage()">&#10094;</button>
+      <img class="image-modal-img" id="modalImage" src="" alt="">
+      <button class="image-modal-nav image-modal-next" onclick="nextImage()">&#10095;</button>
+      <div class="image-modal-caption" id="modalCaption"></div>
+    </div>
+  </div>
+
   <div class="video-bg-wrapper" aria-hidden="true">
     <iframe class="video-bg"
       src="https://www.youtube.com/embed/Eji3K_msWL8?autoplay=1&mute=1&controls=0&loop=1&playlist=Eji3K_msWL8&modestbranding=1&rel=0&showinfo=0&iv_load_policy=3&playsinline=1"
@@ -440,8 +564,8 @@
           <a class="nav-link" href="#about">關於我</a>
           <a class="nav-link" href="#skills">專業能力</a>
           <a class="nav-link" href="#cases">工作成果</a>
-          <a class="nav-link" href="#beyond">創作面</a>
-          <a href="#consult" class="btn-primary" style="padding:0.55rem 1.25rem;font-size:0.8rem">預約諮詢</a>
+          <a class="nav-link" href="#beyond">工作之外</a>
+          <a href="#consult" class="btn-primary" style="padding:0.55rem 1.25rem;font-size:0.8rem">預約聊聊</a>
         </div>
 
         <!-- Mobile button -->
@@ -460,8 +584,8 @@
           <a class="mobile-link" href="#about" style="color:rgba(82,87,79,.65);text-decoration:none">關於我</a>
           <a class="mobile-link" href="#skills" style="color:rgba(82,87,79,.65);text-decoration:none">專業能力</a>
           <a class="mobile-link" href="#cases" style="color:rgba(82,87,79,.65);text-decoration:none">工作成果</a>
-          <a class="mobile-link" href="#beyond" style="color:rgba(82,87,79,.65);text-decoration:none">創作面</a>
-          <a class="mobile-link" href="#consult" style="color:rgba(82,87,79,.65);text-decoration:none">預約諮詢</a>
+          <a class="mobile-link" href="#beyond" style="color:rgba(82,87,79,.65);text-decoration:none">工作之外</a>
+          <a class="mobile-link" href="#consult" style="color:rgba(82,87,79,.65);text-decoration:none">預約聊聊</a>
         </div>
       </div>
     </div>
@@ -493,7 +617,7 @@
             </p>
             <p>
               設計出身，做過 PM、帶過團隊、寫過補助案、站上國際展場。<br />
-              不是因為樣樣精通，而是每一次都在找那條能走的路。
+              在有限資源裡，為團隊與客戶尋找雙贏的機會，執行信念的領路人。
             </p>
           </div>
 
@@ -516,7 +640,7 @@
           <!-- CTAs -->
           <div class="mt-10 flex flex-col sm:flex-row gap-3">
             <a href="#cases" class="btn-primary">查看工作成果 ↓</a>
-            <a href="https://calendar.app.google/4akmDj5Bpy3jWL1q6" target="_blank" rel="noopener" class="btn-outline">預約 30 分鐘諮詢</a>
+            <a href="https://calendar.app.google/4akmDj5Bpy3jWL1q6" target="_blank" rel="noopener" class="btn-outline">預約 30 分鐘聊聊</a>
           </div>
         </div>
 
@@ -661,30 +785,6 @@
             </div>
           </div>
 
-        </div>
-
-        <!-- 3 pillars -->
-        <div class="divider my-14"></div>
-
-        <div class="grid gap-5 md:grid-cols-3 fade-up">
-          <div class="card p-7" style="background:#F7F4EE">
-            <p class="text-sm font-bold mb-3" style="color:var(--uji)">服務對象</p>
-            <p class="text-sm leading-7" style="color:rgba(82,87,79,.78)">
-              教育科技公司、內容品牌、學校、圖書館、展覽場域、文化機構，以及探索 AI、AR 與兒童學習體驗的組織。
-            </p>
-          </div>
-          <div class="card p-7" style="background:#FBFAF7">
-            <p class="text-sm font-bold mb-3" style="color:var(--hojicha)">核心能力</p>
-            <p class="text-sm leading-7" style="color:rgba(82,87,79,.78)">
-              在創意、技術與商業需求之間進行轉譯，協助不同角色對齊目標，形成可開發、測試與推廣的方案。
-            </p>
-          </div>
-          <div class="card p-7" style="background:#F4F2EF">
-            <p class="text-sm font-bold mb-3" style="color:var(--uji)">合作價值</p>
-            <p class="text-sm leading-7" style="color:rgba(82,87,79,.78)">
-              將抽象需求整理成清楚產品架構，並在有限資源下找到最適合落地的路徑。
-            </p>
-          </div>
         </div>
 
       </div>
@@ -858,11 +958,16 @@
                   <p class="metric-label">日本教育科技展代表展示</p>
                 </div>
               </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="tag tag-green">Product Strategy</span>
-                <span class="tag tag-green">UI/UX Design</span>
-                <span class="tag">EdTech</span>
-                <span class="tag">AR</span>
+              <div class="flex flex-wrap justify-between items-start gap-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag tag-green">Product Strategy</span>
+                  <span class="tag tag-green">UI/UX</span>
+                  <span class="tag">EdTech</span>
+                  <span class="tag">AR</span>
+                </div>
+                <button class="view-more-link" data-images="./童畫童話APP首頁.jpeg|./童畫童話產品示意圖_數位檔.jpeg|./2025 HolonIQ 頒獎授獎照(壓縮後).jpg" data-titles="APP 首頁|產品示意圖|HolonIQ 頒獎典禮" style="flex-shrink: 0;">
+                  看更多 →
+                </button>
               </div>
             </div>
           </article>
@@ -896,7 +1001,6 @@
                 <span class="tag tag-green">Process Design</span>
                 <span class="tag tag-green">AI Workflow</span>
                 <span class="tag">PM</span>
-                <span class="tag">Operations</span>
               </div>
             </div>
           </article>
@@ -908,28 +1012,36 @@
                 <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
                   style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">03</span>
               </div>
-              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">政府補助與競賽提案</h3>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">文化場館數位互動體驗｜哈瑪星/黃金蝙蝠館</h3>
               <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
-                獨立完成 6–7 份競賽提案簡報，從市場定位、商業模式到簡報敘事全程主導，其中一份在逾 1,500 隊的競賽中進入決賽前 9 強。同時獨立撰寫多份政府補助申請案，最大單案規模達 259 萬，涵蓋 SITI 數位創新補助與地方青創計畫。
+                擔任PM，主導兩個文化場館的數位互動體驗專案。與高雄市文化局合作，將哈瑪星導覽知識重新設計為手冊搭配數位遊戲的複合體驗，印製1,000份實體手冊並於場館落地應用。與雲林黃金蝙蝠館合作，開發蝙蝠耳朵配對互動遊戲，部署於館內平板與50吋大型互動電視，目前持續運作中。
+              </p>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                兩個專案的共同核心：把以往依賴文字說明或蓋章集點的靜態文化知識，轉化成訪客可以主動參與的互動體驗。
               </p>
             </div>
             <div>
               <div class="grid grid-cols-2 gap-3 mb-6">
                 <div class="case-metric">
-                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ PERSUASION / 提案說服力</p>
-                  <p class="metric-num" style="font-size: 1.15rem; line-height: 1.2;">打入決賽 9 強</p>
-                  <p class="metric-label">AI Innovation 1500隊競爭</p>
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ DEPLOYMENT / 實地部署</p>
+                  <p class="metric-num" style="font-size: 1.15rem; line-height: 1.2;">雙館落地</p>
+                  <p class="metric-label">高雄哈瑪星 × 雲林黃金蝙蝠館</p>
                 </div>
                 <div class="case-metric">
-                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ EXECUTION / 文件執行力</p>
-                  <p class="metric-num">259 萬</p>
-                  <p class="metric-label">獨立撰寫最大補助案規模</p>
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ IMPACT / 持續運作</p>
+                  <p class="metric-num">現役中</p>
+                  <p class="metric-label">50吋互動電視，館內持續部署使用</p>
                 </div>
               </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="tag tag-green">Storytelling</span>
-                <span class="tag tag-green">Business Strategy</span>
-                <span class="tag">Proposal</span>
+              <div class="flex flex-wrap justify-between items-start gap-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag tag-green">Cultural Tech</span>
+                  <span class="tag tag-green">Interactive</span>
+                  <span class="tag">Experience</span>
+                </div>
+                <button class="view-more-link" data-images="./哈瑪星手冊封面.jpeg|./哈瑪星遊戲示意圖.png|./蝙蝠館遊戲示意圖.png" data-titles="哈瑪星手冊封面|哈瑪星遊戲示意圖|蝙蝠館遊戲示意圖" style="flex-shrink: 0;">
+                  看更多 →
+                </button>
               </div>
             </div>
           </article>
@@ -940,6 +1052,44 @@
               <div class="flex items-start justify-between mb-5">
                 <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
                   style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">04</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">泰國智慧教育平板｜海外教育產品設計</h3>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                於 Shuttle 擔任 UI 設計師，獨立完成泰國小學智慧教育平板的完整 Wireframe，涵蓋所有頁面資訊架構與互動流程設計。在無法進行使用者訪談、無法直接接觸目標市場的條件下，獨立完成所有設計判斷，最終產品出貨進行實地測試。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ OWNERSHIP / 獨立主導</p>
+                  <p class="metric-num text-uji" style="font-size: 1.15rem; line-height: 1.2;">從模糊需求找到方向</p>
+                  <p class="metric-label">需求模糊、零訪談，獨立完成全站 Wireframe</p>
+                </div>
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ DELIVERY / 海外落地</p>
+                  <p class="metric-num text-uji" style="font-size: 1.15rem; line-height: 1.2;">跨國設計案</p>
+                  <p class="metric-label">泰國小學實地部署，跨文化場域落地</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap justify-between items-start gap-3">
+                <div class="flex flex-wrap gap-2">
+                  <span class="tag tag-green">UI/UX</span>
+                  <span class="tag tag-green">Wireframing</span>
+                  <span class="tag">Overseas</span>
+                </div>
+                <button class="view-more-link" data-images="./泰國小學student home UI-03.png|./泰國小學student home UI-06.png" data-titles="Student Home UI (1)|Student Home UI (2)" style="flex-shrink: 0;">
+                  看更多 →
+                </button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Case 05 -->
+          <article class="fade-up card p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-5">
+                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
+                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">05</span>
               </div>
               <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">OKR 體系建立與團隊培育</h3>
               <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
@@ -963,39 +1113,6 @@
                 <span class="tag tag-green">Team Building</span>
                 <span class="tag tag-green">OKR</span>
                 <span class="tag">Leadership</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Case 05 -->
-          <article class="fade-up card p-8 flex flex-col justify-between">
-            <div>
-              <div class="flex items-start justify-between mb-5">
-                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
-                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">05</span>
-              </div>
-              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">泰國智慧教育平板｜海外教育產品設計</h3>
-              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
-                於 Shuttle 擔任 UI 設計師，獨立完成泰國小學智慧教育平板的完整 Wireframe，涵蓋所有頁面資訊架構與互動流程設計。在無法進行使用者訪談、無法直接接觸目標市場的條件下，獨立完成所有設計判斷，最終產品出貨進行實地測試。
-              </p>
-            </div>
-            <div>
-              <div class="grid grid-cols-2 gap-3 mb-6">
-                <div class="case-metric">
-                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ OWNERSHIP / 獨立主導</p>
-                  <p class="metric-num text-uji" style="font-size: 1.15rem; line-height: 1.2;">從模糊需求找到方向</p>
-                  <p class="metric-label">需求模糊、零訪談，獨立完成全站 Wireframe</p>
-                </div>
-                <div class="case-metric">
-                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ DELIVERY / 海外落地</p>
-                  <p class="metric-num text-uji" style="font-size: 1.15rem; line-height: 1.2;">跨國設計案</p>
-                  <p class="metric-label">泰國小學實地部署，跨文化場域落地</p>
-                </div>
-              </div>
-              <div class="flex flex-wrap gap-2">
-                <span class="tag tag-green">UI/UX</span>
-                <span class="tag tag-green">Wireframing</span>
-                <span class="tag">Overseas Deployment</span>
               </div>
             </div>
           </article>
@@ -1034,6 +1151,39 @@
             </div>
           </article>
 
+          <!-- Case 07 -->
+          <article class="fade-up card p-8 flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-5">
+                <span class="inline-block rounded-full text-xs font-bold tracking-[0.15em] px-3 py-1"
+                  style="background:rgba(229,217,203,.2);border:1px solid rgba(229,217,203,.45);color:var(--hojicha)">07</span>
+              </div>
+              <h3 class="text-xl font-semibold mb-4" style="color:var(--ink)">政府補助與競賽提案</h3>
+              <p class="text-sm leading-7 mb-6" style="color:rgba(82,87,79,.60)">
+                獨立完成 6–7 份競賽提案簡報，從市場定位、商業模式到簡報敘事全程主導，其中一份在逾 1,500 隊的競賽中進入決賽前 9 強。同時獨立撰寫多份政府補助申請案，最大單案規模達 259 萬，涵蓋 SITI 數位創新補助與地方青創計畫。
+              </p>
+            </div>
+            <div>
+              <div class="grid grid-cols-2 gap-3 mb-6">
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ PERSUASION / 提案說服力</p>
+                  <p class="metric-num" style="font-size: 1.15rem; line-height: 1.2;">打入決賽 9 強</p>
+                  <p class="metric-label">AI Innovation 1500隊競爭</p>
+                </div>
+                <div class="case-metric">
+                  <p class="text-[0.62rem] font-bold tracking-wider text-uji/80 block uppercase mb-1">✦ EXECUTION / 文件執行力</p>
+                  <p class="metric-num">259 萬</p>
+                  <p class="metric-label">獨立撰寫最大補助案規模</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="tag tag-green">Storytelling</span>
+                <span class="tag tag-green">Business Strategy</span>
+                <span class="tag">Proposal</span>
+              </div>
+            </div>
+          </article>
+
         </div>
       </div>
     </section>
@@ -1067,7 +1217,6 @@
 
             <!-- Visual: watercolor timelapse video -->
             <div class="relative overflow-hidden" style="background:var(--washi)">
-              <img src="watercolor.jpg" alt="水彩速寫作品" class="w-full h-auto block"/>
               <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" style="opacity:0.93;object-position:center bottom">
                 <source src="IMG_8810.mov" type="video/quicktime">
                 <source src="IMG_8810.mov" type="video/mp4">
@@ -1101,7 +1250,7 @@
           </p>
           <a href="https://calendar.app.google/4akmDj5Bpy3jWL1q6" target="_blank" rel="noopener"
             class="btn-primary" style="font-size:1rem;padding:1rem 2.25rem">
-            預約 30 分鐘免費諮詢
+            預約 30 分鐘免費聊聊
           </a>
           <p class="mt-5 text-xs" style="color:rgba(82,87,79,.32)">Google Calendar · 免費 · 30 分鐘</p>
 
@@ -1293,6 +1442,82 @@
       resize();
       draw();
     }
+  </script>
+
+  <!-- GLightbox JS - Removed in favor of custom modal -->
+  <script>
+    let currentGalleryImages = [];
+    let currentImageIndex = 0;
+
+    function openImageGallery(images, titles) {
+      currentGalleryImages = images.map((img, idx) => ({
+        src: img,
+        title: titles[idx] || ''
+      }));
+      currentImageIndex = 0;
+      showImage(0);
+      document.getElementById('imageModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageModal() {
+      document.getElementById('imageModal').classList.remove('active');
+      document.body.style.overflow = 'auto';
+      currentGalleryImages = [];
+      currentImageIndex = 0;
+    }
+
+    function showImage(index) {
+      if (currentGalleryImages.length === 0) return;
+      
+      index = (index + currentGalleryImages.length) % currentGalleryImages.length;
+      currentImageIndex = index;
+      
+      const img = currentGalleryImages[index];
+      document.getElementById('modalImage').src = img.src;
+      document.getElementById('modalCaption').textContent = img.title;
+    }
+
+    function nextImage() {
+      showImage(currentImageIndex + 1);
+    }
+
+    function prevImage() {
+      showImage(currentImageIndex - 1);
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      const modal = document.getElementById('imageModal');
+      if (!modal.classList.contains('active')) return;
+      
+      if (e.key === 'ArrowRight') nextImage();
+      if (e.key === 'ArrowLeft') prevImage();
+      if (e.key === 'Escape') closeImageModal();
+    });
+
+    // Close modal when clicking outside image
+    document.getElementById('imageModal').addEventListener('click', function(e) {
+      if (e.target === this) closeImageModal();
+    });
+
+    // Initialize view-more buttons
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.view-more-link').forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          const imagesStr = this.getAttribute('data-images');
+          const titlesStr = this.getAttribute('data-titles');
+          
+          if (!imagesStr) return;
+          
+          const images = imagesStr.split('|');
+          const titles = titlesStr ? titlesStr.split('|') : images.map(() => '');
+          
+          openImageGallery(images, titles);
+        });
+      });
+    });
   </script>
 </body>
 </html>
